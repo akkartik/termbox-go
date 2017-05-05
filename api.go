@@ -69,10 +69,7 @@ func Init() error {
 		return err
 	}
 
-	out.WriteString(funcs[t_enter_ca])
 	out.WriteString(funcs[t_enter_keypad])
-	out.WriteString(funcs[t_hide_cursor])
-	out.WriteString(funcs[t_clear_screen])
 
 	termw, termh = get_term_size(out.Fd())
 	back_buffer.init(termw, termh)
@@ -119,10 +116,7 @@ func Interrupt() {
 // when termbox's functionality isn't required anymore.
 func Close() {
 	quit <- 1
-	out.WriteString(funcs[t_show_cursor])
 	out.WriteString(funcs[t_sgr0])
-	out.WriteString(funcs[t_clear_screen])
-	out.WriteString(funcs[t_exit_ca])
 	out.WriteString(funcs[t_exit_keypad])
 	out.WriteString(funcs[t_exit_mouse])
 	tcsetattr(out.Fd(), &orig_tios)
